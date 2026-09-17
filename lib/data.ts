@@ -177,11 +177,12 @@ export const projects: Project[] = [
     year: '2026',
     category: 'Text Classification',
     summary:
-      'End-to-end classification of spam, phishing and promotional SMS. TF-IDF vectorisation into Multinomial Naive Bayes, with a full preprocessing pipeline — stopword removal, Porter stemming — and an analytics dashboard reporting precision, recall, F1 and confusion matrices.',
+      'End-to-end classification of spam, phishing and promotional SMS, trained on 5,572 records and benchmarked against Logistic Regression and Random Forest baselines. TF-IDF vectorisation into Multinomial Naive Bayes, with a full preprocessing pipeline — stopword removal, Porter stemming — and a dashboard reporting precision, recall, F1 and confusion matrices.',
     stack: ['Python', 'scikit-learn', 'NLTK', 'Streamlit', 'Seaborn'],
+    // Exact figures from the CV; the repo README rounds these to ">98%".
     metrics: [
-      { value: '>98%', label: 'accuracy' },
-      { value: 'UCI SMS', label: 'spam collection' },
+      { value: '98.29%', label: 'accuracy' },
+      { value: '97.1%', label: 'precision' },
     ],
     href: 'https://github.com/Mrnal123/Spam-Detection-System',
     repo: 'https://github.com/Mrnal123/Spam-Detection-System',
