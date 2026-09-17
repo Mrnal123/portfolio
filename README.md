@@ -1,7 +1,11 @@
 # Cinematic AI/ML Portfolio
 
-A scroll-driven, WebGL-accelerated portfolio built from your **Awwwards Pack**
+**Live: https://mrunal-portofolio.vercel.app**
+
+A scroll-driven, WebGL-accelerated portfolio built from the **Awwwards Pack**
 component library, following the scrollytelling skill's narrative-first method.
+
+Deployed on Vercel from `main` — every push to this branch ships to production.
 
 ```bash
 npm install
