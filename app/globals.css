@@ -1,0 +1,336 @@
+@import 'tailwindcss';
+
+/* ============================================================================
+   CINEMATIC DESIGN SYSTEM
+   Amber / teal complementary grade on near-black — the classic film colour
+   pairing. One accent does the talking; everything else is value contrast.
+   ========================================================================== */
+
+@theme {
+  --color-void: #07070a;
+  --color-ink: #0d0d12;
+  --color-surface: #13131a;
+  --color-line: #23232e;
+  --color-bone: #efebe3;
+  --color-mute: #8a8a97;
+  --color-amber: #e9a55c;
+  --color-teal: #3fb8c4;
+  --color-violet: #8b7bd8;
+
+  /* next/font sets the *-loaded variables on <html>; these fall back to
+     system faces if the font request ever fails. */
+  --font-display: var(--font-display-loaded), 'Oswald', Impact, sans-serif;
+  --font-sans: var(--font-sans-loaded), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-mono-loaded), ui-monospace, 'SFMono-Regular', monospace;
+
+  --ease-cinematic: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root {
+  --gutter: 1rem;
+  --header-h: 4.5rem;
+  /* JS writes the real viewport height here — mobile browser chrome lies. */
+  --vh: 100svh;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 2.5rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   BASE
+   -------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* Lenis drives scrolling; native smooth would fight it. */
+  scroll-behavior: auto;
+  /* Kills Chrome-Android pull-to-refresh, which hijacks the hero. */
+  overscroll-behavior-y: none;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-void);
+  color: var(--color-bone);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+/* Lenis requirement: it manages the scroll container itself. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+::selection {
+  background: var(--color-amber);
+  color: var(--color-void);
+}
+
+img,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   TYPOGRAPHY — fluid, clamps to the viewport so nothing needs breakpoints
+   -------------------------------------------------------------------------- */
+
+.t-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 0.85;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  font-size: clamp(3rem, 13vw, 12rem);
+}
+
+.t-h1 {
+  font-family: var(--font-display);
+  line-height: 0.9;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  font-size: clamp(2.5rem, 8vw, 7rem);
+}
+
+.t-h2 {
+  font-family: var(--font-display);
+  line-height: 0.95;
+  text-transform: uppercase;
+  font-size: clamp(2rem, 5vw, 4rem);
+}
+
+.t-lead {
+  font-size: clamp(1.125rem, 2.2vw, 1.75rem);
+  line-height: 1.45;
+}
+
+.t-body {
+  font-size: clamp(0.975rem, 1.1vw, 1.0625rem);
+  line-height: 1.7;
+  color: var(--color-mute);
+}
+
+.t-mono {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+}
+
+/* --------------------------------------------------------------------------
+   LAYOUT
+   -------------------------------------------------------------------------- */
+
+.shell {
+  width: 100%;
+  max-width: 96rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.rule {
+  height: 1px;
+  background: var(--color-line);
+  border: 0;
+}
+
+/* --------------------------------------------------------------------------
+   ANIMATION PRIMITIVES
+   Elements start hidden ONLY when JS is present to reveal them again.
+   `.js-ready` is set on <html> by the scroll provider — without it every
+   reveal renders in its final state, so no-JS and error states stay readable.
+   -------------------------------------------------------------------------- */
+
+.js-ready [data-reveal] {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.split-line {
+  display: block;
+  overflow: hidden;
+}
+
+.split-line > span {
+  display: block;
+  will-change: transform;
+}
+
+.js-ready .split-line > span {
+  transform: translateY(105%);
+}
+
+/* The hero's entrance is gated on the preloader finishing, but the curtain
+   opens ~1s before that. Without these initial states the headline paints in
+   its FINAL position, then snaps back down when GSAP takes over — a visible
+   glitch. Holding the start state in CSS means the first painted frame is
+   already the start of the animation. */
+.js-ready .hero-line > span {
+  transform: translateY(108%);
+}
+
+.js-ready .hero-fade {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.js-ready .hero-rule {
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* Film grain — one fixed overlay, GPU-composited, never repainted. */
+.grain {
+  position: fixed;
+  inset: -50%;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain-shift 0.6s steps(2) infinite;
+}
+
+@keyframes grain-shift {
+  0% { transform: translate(0, 0); }
+  50% { transform: translate(-2%, 1%); }
+  100% { transform: translate(1%, -1%); }
+}
+
+/* Vignette — sells the "shot on film" read at zero cost. */
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 45%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+}
+
+/* --------------------------------------------------------------------------
+   ACCESSIBILITY — non-negotiable.
+   Reduced motion strips every animation AND reveals all hidden content.
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001s !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Critical: undo the pre-animation hidden states. */
+  .js-ready [data-reveal],
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .js-ready .split-line > span,
+  .split-line > span,
+  .js-ready .hero-line > span,
+  .js-ready .hero-rule {
+    transform: none !important;
+  }
+
+  .js-ready .hero-fade {
+    opacity: 1 !important;
+  }
+
+  .grain {
+    animation: none;
+    opacity: 0.02;
+  }
+}
+
+/* Keyboard focus must survive a design this dark. */
+:focus-visible {
+  outline: 2px solid var(--color-amber);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 200;
+  background: var(--color-amber);
+  color: var(--color-void);
+  padding: 0.75rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* The custom cursor is a pointer-device luxury. Touch and reduced-motion
+   users keep their native cursor and full touch targets. */
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .cursor-host {
+    cursor: none;
+  }
+  .cursor-host a,
+  .cursor-host button {
+    cursor: none;
+  }
+}
