@@ -255,8 +255,22 @@ export function Counter({
   decimals?: number;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const places = decimals ?? (Number.isInteger(value) ? 0 : 1);
-  const [display, setDisplay] = useState(() => value.toFixed(places));
+
+  // Derive precision from the value itself. Defaulting to 1 decimal place
+  // silently rounded 98.29 to "98.3" — misreporting a real measured figure,
+  // which is worse than any animation bug on this page.
+  const places =
+    decimals ??
+    (Number.isInteger(value) ? 0 : (String(value).split('.')[1] ?? '').length);
+
+  // Grouping separators so 4803 reads as "4,803".
+  const format = (n: number) =>
+    n.toLocaleString('en-US', {
+      minimumFractionDigits: places,
+      maximumFractionDigits: places,
+    });
+
+  const [display, setDisplay] = useState(() => format(value));
 
   useEffect(() => {
     const el = ref.current;
@@ -264,19 +278,19 @@ export function Counter({
     registerGsap();
 
     if (prefersReducedMotion()) {
-      setDisplay(value.toFixed(places));
+      setDisplay(format(value));
       return;
     }
 
     const obj = { n: 0 };
-    setDisplay('0'.padStart(1, '0'));
+    setDisplay(format(0));
 
     const ctx = gsap.context(() => {
       gsap.to(obj, {
         n: value,
         duration: 2,
         ease: 'power2.out',
-        onUpdate: () => setDisplay(obj.n.toFixed(places)),
+        onUpdate: () => setDisplay(format(obj.n)),
         scrollTrigger: { trigger: el, start: 'top 90%', once: true },
       });
     }, el);

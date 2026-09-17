@@ -6,21 +6,25 @@
  * Nothing else in the codebase needs to change to make this site yours.
  * ========================================================================== */
 
+/* Identity, experience and skills below are taken from the CV
+ * (Mrunal-Samal.pdf). Phone number deliberately omitted — a public page is
+ * a magnet for scrapers; email and LinkedIn are enough to reach you. */
 export const identity = {
-  name: 'Mrunal Samal', // [PLACEHOLDER]
-  initials: 'MS', // [PLACEHOLDER]
-  role: 'AI/ML Engineer & Full-Stack Developer', // [PLACEHOLDER]
-  location: 'Bengaluru, India', // [PLACEHOLDER]
+  name: 'Mrunal Samal',
+  initials: 'MS',
+  role: 'AI Engineer — Multi-Agent Systems & Agentic Tooling',
+  location: 'Bhubaneswar, India',
   email: 'mrunalsamal123@gmail.com',
   available: true,
-  availableLabel: 'Open to 2026 roles', // [PLACEHOLDER]
+  availableLabel: 'Freelancing — available now',
   // The single sentence that defines you. Keep it under 20 words.
-  tagline: 'I build systems that turn raw signal into decisions people trust.', // [PLACEHOLDER]
+  tagline:
+    'I build multi-agent systems — orchestration, tool calling, MCP — and ship them end to end.',
 } as const;
 
 export const socials = [
   { label: 'GitHub', href: 'https://github.com/Mrnal123' },
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/yourhandle' }, // [PLACEHOLDER]
+  { label: 'LinkedIn', href: 'https://linkedin.com/in/mrunalsamal' },
   { label: 'Email', href: 'mailto:mrunalsamal123@gmail.com' },
 ] as const;
 
@@ -69,7 +73,7 @@ export const pipeline: PipelineStep[] = [
     index: '01',
     title: 'Data',
     body: 'Everything starts as noise. I build the ingestion, labelling and validation layers that turn messy, real-world input into something a model can actually learn from.',
-    metric: { value: '2.4M', label: 'records processed / day' }, // [PLACEHOLDER]
+    metric: { value: '5,572', label: 'SMS records labelled' },
     mode: 'scatter',
   },
   {
@@ -77,7 +81,7 @@ export const pipeline: PipelineStep[] = [
     index: '02',
     title: 'Features',
     body: 'Structure emerges. Embeddings, feature stores and the unglamorous transforms that decide whether a model has a chance before training ever begins.',
-    metric: { value: '768', label: 'dim embedding space' }, // [PLACEHOLDER]
+    metric: { value: '88', label: 'category skill taxonomy' },
     mode: 'cluster',
   },
   {
@@ -85,7 +89,7 @@ export const pipeline: PipelineStep[] = [
     index: '03',
     title: 'Model',
     body: 'Training, fine-tuning, distillation. I care less about leaderboard deltas than about the smallest model that survives contact with production.',
-    metric: { value: '94.2%', label: 'validation accuracy' }, // [PLACEHOLDER]
+    metric: { value: '98.29%', label: 'classifier accuracy' },
     mode: 'converge',
   },
   {
@@ -93,7 +97,7 @@ export const pipeline: PipelineStep[] = [
     index: '04',
     title: 'Evaluation',
     body: 'The part people skip. Offline metrics, human review loops, drift detection and the honest question: is this actually better than what it replaced?',
-    metric: { value: '1.8x', label: 'lift over baseline' }, // [PLACEHOLDER]
+    metric: { value: '3', label: 'baselines benchmarked' },
     mode: 'grid',
   },
   {
@@ -101,7 +105,7 @@ export const pipeline: PipelineStep[] = [
     index: '05',
     title: 'Deployment',
     body: 'Where it becomes real. Typed APIs, streaming inference, observability, and an interface a person can understand without reading the paper.',
-    metric: { value: '82ms', label: 'p95 inference latency' }, // [PLACEHOLDER]
+    metric: { value: '80%', label: 'confidence gate to answer' },
     mode: 'stream',
   },
 ];
@@ -233,46 +237,73 @@ export const capabilities = [
 ]; // [PLACEHOLDER]
 
 export const stack = [
-  { group: 'Modelling', items: ['PyTorch', 'JAX', 'scikit-learn', 'Transformers', 'LightGBM'] },
-  { group: 'Serving', items: ['FastAPI', 'ONNX', 'TensorRT', 'vLLM', 'Ray'] },
-  { group: 'Data', items: ['Polars', 'DuckDB', 'Airflow', 'pgvector', 'Kafka'] },
-  { group: 'Product', items: ['TypeScript', 'Next.js', 'React', 'Tailwind', 'GSAP'] },
-  { group: 'Infra', items: ['Docker', 'Kubernetes', 'AWS', 'Terraform', 'GitHub Actions'] },
-]; // [PLACEHOLDER]
+  {
+    group: 'Agentic',
+    items: ['Claude Code', 'MCP', 'Agent Skills', 'Multi-Agent Orchestration', 'Tool Calling', 'ReAct', 'n8n'],
+  },
+  {
+    group: 'LLMs',
+    items: ['OpenAI', 'Anthropic Claude', 'Google Gemini', 'Ollama / Llama 3.1', 'Function Calling', 'Structured Outputs'],
+  },
+  {
+    group: 'Machine Learning',
+    items: ['TensorFlow', 'scikit-learn', 'Sentence Transformers', 'NLTK', 'Model Evaluation'],
+  },
+  {
+    group: 'MLOps',
+    items: ['joblib packaging', 'Versioned artifacts', 'Evaluation harnesses', 'pytest', 'CI/CD'],
+  },
+  {
+    group: 'Languages',
+    items: ['Python', 'SQL', 'Bash', 'TypeScript', 'Linux', 'Git', 'FastAPI', 'Docker', 'Next.js'],
+  },
+  {
+    group: 'Data & Search',
+    items: ['PostgreSQL', 'Supabase', 'pgvector', 'Semantic search', 'Vector embeddings', 'RAG'],
+  },
+];
 
 /* --------------------------------------------------------------------------
  * ACT V — the path. Reverse-chronological.
  * ------------------------------------------------------------------------ */
 export const experience = [
   {
-    period: '2025 — Now',
-    role: 'ML Engineer',
+    period: 'Jan 2026 — Now',
+    role: 'Freelance AI Engineer',
     org: 'Independent',
     detail:
-      'Building retrieval and agent infrastructure for early-stage teams. Shipping end-to-end: data layer through interface.',
+      'Independent client work on multi-agent systems and agentic tooling — agent orchestration, MCP integrations, tool calling and Claude Code skills.',
   },
   {
-    period: '2024 — 2025',
-    role: 'Full-Stack Engineer',
-    org: 'Company Name',
+    period: 'Jun 2026 — Jul 2026',
+    role: 'Artificial Intelligence Intern',
+    org: 'Incode Vision',
     detail:
-      'Owned the production surface for a vision QC system — inference service, review tooling and the dashboard operators lived in.',
+      'Shipped TalentRank AI, a resume screener scoring candidates on a weighted 100-point model with semantic matching over an 88-category skill taxonomy. Trained a spam classifier to 98.29% accuracy, benchmarked against Logistic Regression and Random Forest. Built CineMatch AI over 4,803 TMDB titles, FastAPI to Next.js.',
   },
   {
-    period: '2023 — 2024',
-    role: 'ML Intern',
-    org: 'Research Lab',
+    period: 'Dec 2024 — Jun 2026',
+    role: 'Growth & Systems Engineer, Affiliate Operations',
+    org: 'Gyankamao · Part-time',
     detail:
-      'Time-series forecasting research. Took a quantile regression prototype from notebook to a nightly production pipeline.',
+      'Automated lead distribution and newsletter funnels across a 45-affiliate network, lifting engagement 3–5%. Sole engineer on 100+ email campaigns, owning segmentation through delivery reporting.',
   },
-]; // [PLACEHOLDER]
+  {
+    period: 'Expected May 2028',
+    role: 'B.Tech, Artificial Intelligence & Machine Learning',
+    org: 'SRM Institute of Science and Technology',
+    detail:
+      'Chennai, India. Top 10 team at the ISET Hackathon for Sarathi AI — early warnings with automated resource dispatch. 2nd runner-up at Synapses 2025, IIT Roorkee, for a runtime UI generator in Unreal Engine.',
+  },
+];
 
+/* Real figures, all traceable to the CV or a project README. */
 export const metrics = [
-  { value: 18, suffix: '+', label: 'Models shipped to production' },
-  { value: 2.4, suffix: 'M', label: 'Daily inference calls served' },
-  { value: 94, suffix: '%', label: 'Mean production accuracy' },
-  { value: 6, suffix: '', label: 'Years building systems' },
-]; // [PLACEHOLDER]
+  { value: 98.29, suffix: '%', label: 'Spam classifier accuracy' },
+  { value: 267, suffix: '', label: 'Components indexed in a published Claude skill' },
+  { value: 4803, suffix: '', label: 'Titles indexed in the recommender' },
+  { value: 45, suffix: '', label: 'Affiliate network automated' },
+];
 
 export const outro = {
   eyebrow: 'Act VI',
@@ -282,12 +313,12 @@ export const outro = {
 }; // [PLACEHOLDER]
 
 export const marqueeWords = [
-  'MACHINE LEARNING',
-  'FULL-STACK',
-  'RETRIEVAL',
-  'COMPUTER VISION',
-  'LLM SYSTEMS',
+  'MULTI-AGENT SYSTEMS',
+  'MCP',
+  'AGENT SKILLS',
+  'TOOL CALLING',
+  'RAG',
+  'SEMANTIC SEARCH',
   'MLOPS',
-  'INFERENCE',
-  'PRODUCT',
+  'PYTHON',
 ];
