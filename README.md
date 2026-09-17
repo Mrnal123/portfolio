@@ -117,14 +117,22 @@ Each pick, and why:
 
 ## Known gaps
 
-- **The four projects are real** (`github.com/Mrnal123`), and every figure on
-  those cards comes from the repo's own README. **Everything else on the page
-  is still invented placeholder copy** — the headline `metrics`, the per-step
-  `pipeline` figures, and the whole `experience` timeline. Real repo links
-  sitting next to "2.4M daily inference calls served" is the fastest way to
-  lose a reader's trust, so fix those before this goes public.
-- LinkedIn URL is still `yourhandle`.
-- No real images yet — cards use accent-colour washes.
+Identity, experience, skills, headline stats and pipeline figures now come
+from the CV; the projects come from real repos. What is still generic:
+
+- **`manifesto`** — the "models die in notebooks" thesis. It reads as
+  generic ML positioning and no longer matches the agentic/MCP focus. Worth
+  rewriting in your own voice.
+- **`capabilities`** — the four flip-cards. Plausible but unsourced, and
+  "reading papers is the easy part" overclaims for where you are.
+- **`outro`** — fine, but it's my wording, not yours.
+- No real images — cards use accent-colour washes.
+- Phone number is deliberately **not** on the page (scraper bait). Email and
+  LinkedIn are the contact paths.
+- Worth adding once they have READMEs: `Satyanetra_Backend` is already in,
+  but the **published Claude Code skill** (267-component library) and
+  **Decivio** (agentic life-simulation engine) are arguably stronger
+  differentiators than BioSphereX.
 - Worth adding once they have READMEs: `Satyanetra_Backend` (Next.js + Java,
   Dockerised, deployed to AWS ECS via GitHub Actions — the strongest infra
   work in the account) and the NanoTox line (DFT descriptors, toxicity
